@@ -1,0 +1,92 @@
+work_dir: ${hydra:runtime.cwd}
+data_dir: ${work_dir}/data
+print_config: true
+seed: 12345
+task_name: onepose
+exp_name: onepose_plus_train
+trainer:
+  _target_: lightning.pytorch.Trainer
+  devices:
+  - 1
+  min_epochs: 1
+  max_epochs: 40
+  gradient_clip_val: 0.5
+  accumulate_grad_batches: 2
+  num_sanity_val_steps: 0
+  limit_val_batches: 0
+  benchmark: true
+model:
+  _target_: src.models.Nerf_lightning_model.LitModelNerf
+  optimizer: adam
+  lr: 0.001
+  weight_decay: 0.0
+  architecture: SuperGlue
+  milestones:
+  - 5
+  - 10
+  - 15
+  - 20
+  - 25
+  gamma: 0.5
+  descriptor_dim: 128
+  keypoints_encoder:
+  - 32
+  - 64
+  - 128
+  sinkhorn_iterations: 100
+  match_threshold: 0.2
+  match_type: softmax
+  scale_factor: 0.07
+  focal_loss_alpha: 0.5
+  focal_loss_gamma: 2
+  pos_weights: 0.5
+  neg_weights: 0.5
+  include_self: true
+  with_linear_transform: false
+  additional: false
+  spp_model_path: ${work_dir}/data/models/extractors/SuperPoint/superpoint_v1.pth
+  resnet_path: ${work_dir}/data/pretrained_resnet/resnet34-333f7ec4.pth
+  N_samples: 128
+  feat_dim: 128
+  num_source_views: 10
+  inv_uniform: true
+  white_bkgd: false
+  N_rand: 4000
+  log_img_step: 2000
+  log_scalar_step: 100
+datamodule:
+  _target_: src.datamodules.NeRF_datamodule.NeRFDataModule
+  data_dirs: ${data_dir}/sfm_model
+  dataset_dirs: ${data_dir}/onepose_datasets
+  anno_dirs: outputs_${model.match_type}/anno
+  train_anno_file: ${work_dir}/data/cache/${task_name}/train.json
+  val_anno_file: ${work_dir}/data/cache/${task_name}/val.json
+  batch_size: 1
+  num_workers: 0
+  num_leaf: 8
+  pin_memory: true
+  shape2d: 1000
+  shape3d: 2000
+  assign_pad_val: 0
+  load_in_ram: false
+  num_source_views: 10
+  num_total_views: 30
+  resolution: 128
+callbacks:
+  model_checkpoint:
+    _target_: lightning.pytorch.callbacks.ModelCheckpoint
+    monitor: val/loss
+    save_top_k: -1
+    save_last: true
+    mode: min
+    dirpath: ${data_dir}/models/checkpoints/${exp_name}
+    filename: '{epoch}'
+  lr_monitor:
+    _target_: lightning.pytorch.callbacks.LearningRateMonitor
+    logging_interval: step
+logger:
+  tensorboard:
+    _target_: lightning.pytorch.loggers.TensorBoardLogger
+    save_dir: ${data_dir}/logs
+    name: ${exp_name}
+    default_hp_metric: false

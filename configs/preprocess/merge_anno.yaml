@@ -1,0 +1,165 @@
+# @package _global_
+
+type: merge_anno
+task_name: null
+split: 'train_1'
+
+train:
+    names: 
+        - 0410-huiyuan-box
+        - 0413-juliecookies-box
+        - 0414-babydiapers-others
+        - 0415-captaincup-others
+        - 0416-tongyinoodles-others
+        - 0418-cookies1-others
+        - 0420-liuliumei-others
+        - 0421-cannedfish-others
+        - 0443-wheatbear-others
+        - 0445-pistonhead-others
+        - 0448-soyabeancookies-bottle
+        - 0460-hbdsoyabeancookies-bottle
+        - 0461-cranberrycookies-bottle
+        - 0462-ylmilkpowder-bottle
+        - 0463-camelmilk-bottle
+        - 0464-mfchoccake-box
+        - 0465-mfcreamcake-box
+        - 0477-cutlet-bottle
+        - 0479-ggbondcutlet-others
+        - 0484-bigroll-box
+        - 0499-tiramisufranzzi-box
+        - 0506-sauerkrautnoodles-others
+        - 0507-hotsournoodles-others
+        - 0509-bscola-others
+        - 0512-ugreenhub-box
+        - 0513-busbox-box
+        - 0516-wewarm-box
+        - 0529-onionnoodles-box
+        - 0530-trufflenoodles-box
+        - 0531-whiskware-box
+        - 0532-delonghi-box
+        - 0533-shiramyun-box
+        - 0536-ranovarect-box
+        - 0542-bueno-box
+        - 0545-book-others
+        - 0546-can-bottle
+        - 0549-footballcan-bottle
+        - 0556-pinkbox-box
+        - 0561-yellowbottle-bottle
+        - 0562-yellowbox-box
+        - 0563-applejuice-box
+        - 0566-chillisauce-box
+        - 0567-coffeebox-box
+        - 0569-greentea-bottle
+        - 0571-cakebox-box
+        - 0572-milkbox-others
+        - 0573-redchicken-others
+        - 0574-rubberduck-others
+        - 0575-saltbottle-bottle
+
+val:
+    names:
+#        - 0601-loquat-box
+#        - 0606-tiger-others
+#        - 0611-pikachubowl-others
+#        - 0616-hmbb-others
+#        - 0615-nabati-bottle
+#        - 0613-adidasshoeright-others
+        - 0620-dinosaurcup-bottle
+
+test:
+    names:
+        - 0410-huiyuan-box
+        - 0408-colorbox-box
+        - 0409-aptamil-box
+        - 0419-cookies2-others
+        - 0422-qvduoduo-box
+        - 0423-oreo-box
+        - 0424-chocbox-box
+        - 0447-nabati-box
+        - 0450-hlychocpie-box
+        - 0452-hlymatchapie-box
+        - 0455-strawberryoreo-box
+        - 0456-chocoreo-box
+        - 0458-hetaocakes-box
+        - 0459-jzhg-box
+        - 0466-mfmilkcake-box
+        - 0468-minipuff-box
+        - 0469-diycookies-box
+        - 0470-eggrolls-box
+        - 0471-hlyormosiapie-box
+        - 0472-chocoreo-bottle
+        - 0473-twgrassjelly1-box
+        - 0474-twgrassjelly2-box
+        - 0476-giraffecup-bottle
+        - 0480-ljcleaner-others
+        - 0483-ambrosial-box
+        - 0486-sanqitoothpaste-box
+        - 0487-jindiantoothpaste-box
+        - 0488-jijiantoothpaste-box
+        - 0489-taipingcookies-others
+        - 0490-haochidiancookies-others
+        - 0492-tuccookies-box
+        - 0493-haochidianeggroll-box
+        - 0494-qvduoduocookies-box
+        - 0495-fulingstapler-box
+        - 0496-delistapler-box
+        - 0497-delistaplerlarger-box
+        - 0498-yousuanru-box
+        - 0500-chocfranzzi-box
+        - 0501-matchafranzzi-box
+        - 0502-shufujia-box
+        - 0503-shufujiawhite-box
+        - 0504-lux-box
+        - 0508-yqsl-others
+        - 0510-yqslmilk-others
+        - 0511-policecar-others
+        - 0517-nationalgeo-box
+        - 0518-jasmine-box
+        - 0519-backpack1-box
+        - 0520-lipault-box
+        - 0521-ranova-box
+        - 0522-milkbox-box
+        - 0523-edibleoil-others
+        - 0525-toygrab-others
+        - 0526-toytable-others
+        - 0527-spalding-others
+        - 0534-tonkotsuramen-box
+        - 0535-odbmilk-box
+        - 0537-petsnack-box
+        - 0539-spamwrapper-others
+        - 0543-brownhouse-others
+        - 0547-cubebox-box
+        - 0548-duck-others
+        - 0550-greenbox-box
+        - 0551-milk-others
+        - 0552-mushroom-others
+        - 0557-santachoc-others
+        - 0558-teddychoc-others
+        - 0559-tissuebox-box
+        - 0560-tofubox-box
+        - 0564-biatee-others
+        - 0565-biscuits-box
+        - 0568-cornflakes-box
+        - 0570-kasekuchen-box
+        - 0577-schoko-box
+        - 0578-tee-others
+        - 0579-tomatocan-bottle
+        - 0580-xmaxbox-others
+        - 0582-yogurtlarge-others
+        - 0583-yogurtmedium-others
+        - 0594-martinBootsLeft-others
+        - 0595-martinBootsRight-others
+
+network:
+    detection: superpoint
+    matching: superglue
+
+datamodule:
+    scan_data_dir: ${work_dir}/data/onepose_datasets
+    data_dir: ${work_dir}/data/sfm_model
+    out_path: ${work_dir}/data/cache/${task_name}/${split}.json
+
+
+hydra:
+    run:
+        dir: ${work_dir}

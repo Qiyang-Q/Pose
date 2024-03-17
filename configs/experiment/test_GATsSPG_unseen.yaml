@@ -1,0 +1,132 @@
+# @package _global_
+
+type: inference
+task_name: test_onepose
+num_leaf: 8
+suffix: ''
+save_demo: False
+save_wis3d: False
+demo_root: ${data_dir}/runs/demo
+
+model:
+    onepose_model_path: ${data_dir}/models/checkpoints/onepose/GATsSPG.ckpt
+    extractor_model_path: ${data_dir}/models/extractors/SuperPoint/superpoint_v1.pth
+
+network:
+    detection: superpoint
+    matching: superglue
+
+# object_detect_mode: 'GT_box' # ["GT_box", "feature_matching"]
+object_detect_mode: 'GT_box' # ["GT_box", "feature_matching"]
+max_num_kp3d: 2500
+scan_data_dir: ${data_dir}/onepose_datasets/train_data
+sfm_model_dir: ${data_dir}/sfm_model
+anno_dir: ${data_dir}/cache/onepose/train_new.json
+
+input:
+    data_dirs:
+      - ${scan_data_dir}/0410-huiyuan-box huiyuan-4
+      - ${scan_data_dir}/0413-juliecookies-box juliecookies-4
+      - ${scan_data_dir}/0414-babydiapers-others babydiapers-4
+      - ${scan_data_dir}/0415-captaincup-others captaincup-4
+      - ${scan_data_dir}/0416-tongyinoodles-others tongyinoodles-4
+#      - ${scan_data_dir}/0418-cookies1-others cookies1-4
+      - ${scan_data_dir}/0420-liuliumei-others liuliumei-4
+      - ${scan_data_dir}/0421-cannedfish-others cannedfish-4
+      - ${scan_data_dir}/0443-wheatbear-others wheatbear-3
+      - ${scan_data_dir}/0445-pistonhead-others pistonhead-4
+      - ${scan_data_dir}/0448-soyabeancookies-bottle soyabeancookies-3
+      - ${scan_data_dir}/0460-hbdsoyabeancookies-bottle hbdsoyabeancookies-4
+      - ${scan_data_dir}/0461-cranberrycookies-bottle cranberrycookies-4
+      - ${scan_data_dir}/0462-ylmilkpowder-bottle ylmilkpowder-4
+      - ${scan_data_dir}/0463-camelmilk-bottle camelmilk-4
+      - ${scan_data_dir}/0464-mfchoccake-box mfchoccake-4
+      - ${scan_data_dir}/0465-mfcreamcake-box mfcreamcake-4
+      - ${scan_data_dir}/0477-cutlet-bottle cutlet-4
+      - ${scan_data_dir}/0479-ggbondcutlet-others ggbondcutlet-4
+      - ${scan_data_dir}/0484-bigroll-box bigroll-4
+      - ${scan_data_dir}/0499-tiramisufranzzi-box tiramisufranzzi-4
+      - ${scan_data_dir}/0506-sauerkrautnoodles-others sauerkrautnoodles-4
+      - ${scan_data_dir}/0507-hotsournoodles-others hotsournoodles-4
+      - ${scan_data_dir}/0509-bscola-others bscola-4
+      - ${scan_data_dir}/0512-ugreenhub-box ugreenhub-4
+      - ${scan_data_dir}/0513-busbox-box busbox-4
+      - ${scan_data_dir}/0516-wewarm-box wewarm-4
+      - ${scan_data_dir}/0529-onionnoodles-box onionnoodles-3
+      - ${scan_data_dir}/0530-trufflenoodles-box trufflenoodles-4
+      - ${scan_data_dir}/0531-whiskware-box whiskware-4
+      - ${scan_data_dir}/0532-delonghi-box delonghi-3
+      - ${scan_data_dir}/0533-shiramyun-box shiramyun-4
+      - ${scan_data_dir}/0536-ranovarect-box ranovarect-5
+      - ${scan_data_dir}/0542-bueno-box bueno-4
+      - ${scan_data_dir}/0545-book-others book-4
+      - ${scan_data_dir}/0546-can-bottle can-4
+      - ${scan_data_dir}/0549-footballcan-bottle footballcan-4
+      - ${scan_data_dir}/0556-pinkbox-box pinkbox-4
+      - ${scan_data_dir}/0561-yellowbottle-bottle yellowbottle-4
+      - ${scan_data_dir}/0562-yellowbox-box yellowbox-4
+      - ${scan_data_dir}/0563-applejuice-box applejuice-4
+      - ${scan_data_dir}/0566-chillisauce-box chillisauce-4
+      - ${scan_data_dir}/0567-coffeebox-box coffeebox-4
+      - ${scan_data_dir}/0569-greentea-bottle greentea-4
+      - ${scan_data_dir}/0571-cakebox-box cakebox-4
+      - ${scan_data_dir}/0572-milkbox-others milkbox-4
+      - ${scan_data_dir}/0573-redchicken-others redchicken-4
+      - ${scan_data_dir}/0574-rubberduck-others rubberduck-4
+      - ${scan_data_dir}/0575-saltbottle-bottle saltbottle-4
+
+    sfm_model_dirs:
+      - ${sfm_model_dir}/0410-huiyuan-box
+      - ${sfm_model_dir}/0413-juliecookies-box
+      - ${sfm_model_dir}/0414-babydiapers-others
+      - ${sfm_model_dir}/0415-captaincup-others
+      - ${sfm_model_dir}/0416-tongyinoodles-others
+#      - ${sfm_model_dir}/0418-cookies1-others cookies1-4
+      - ${sfm_model_dir}/0420-liuliumei-others
+      - ${sfm_model_dir}/0421-cannedfish-others
+      - ${sfm_model_dir}/0443-wheatbear-others
+      - ${sfm_model_dir}/0445-pistonhead-others
+      - ${sfm_model_dir}/0448-soyabeancookies-bottle
+      - ${sfm_model_dir}/0460-hbdsoyabeancookies-bottle
+      - ${sfm_model_dir}/0461-cranberrycookies-bottle
+      - ${sfm_model_dir}/0462-ylmilkpowder-bottle
+      - ${sfm_model_dir}/0463-camelmilk-bottle
+      - ${sfm_model_dir}/0464-mfchoccake-box
+      - ${sfm_model_dir}/0465-mfcreamcake-box
+      - ${sfm_model_dir}/0477-cutlet-bottle
+      - ${sfm_model_dir}/0479-ggbondcutlet-others
+      - ${sfm_model_dir}/0484-bigroll-box
+      - ${sfm_model_dir}/0499-tiramisufranzzi-box
+      - ${sfm_model_dir}/0506-sauerkrautnoodles-others
+      - ${sfm_model_dir}/0507-hotsournoodles-others
+      - ${sfm_model_dir}/0509-bscola-others
+      - ${sfm_model_dir}/0512-ugreenhub-box
+      - ${sfm_model_dir}/0513-busbox-box
+      - ${sfm_model_dir}/0516-wewarm-box
+      - ${sfm_model_dir}/0529-onionnoodles-box
+      - ${sfm_model_dir}/0530-trufflenoodles-box
+      - ${sfm_model_dir}/0531-whiskware-box
+      - ${sfm_model_dir}/0532-delonghi-box
+      - ${sfm_model_dir}/0533-shiramyun-box
+      - ${sfm_model_dir}/0536-ranovarect-box
+      - ${sfm_model_dir}/0542-bueno-box
+      - ${sfm_model_dir}/0545-book-others
+      - ${sfm_model_dir}/0546-can-bottle
+      - ${sfm_model_dir}/0549-footballcan-bottle
+      - ${sfm_model_dir}/0556-pinkbox-box
+      - ${sfm_model_dir}/0561-yellowbottle-bottle
+      - ${sfm_model_dir}/0562-yellowbox-box
+      - ${sfm_model_dir}/0563-applejuice-box
+      - ${sfm_model_dir}/0566-chillisauce-box
+      - ${sfm_model_dir}/0567-coffeebox-box
+      - ${sfm_model_dir}/0569-greentea-bottle
+      - ${sfm_model_dir}/0571-cakebox-box
+      - ${sfm_model_dir}/0572-milkbox-others
+      - ${sfm_model_dir}/0573-redchicken-others
+      - ${sfm_model_dir}/0574-rubberduck-others
+      - ${sfm_model_dir}/0575-saltbottle-bottle
+
+
+output:
+    vis_dir: ${work_dir}/runs/vis/GATsSPG
+    eval_dir: ${work_dir}/runs/eval/GATsSPG
