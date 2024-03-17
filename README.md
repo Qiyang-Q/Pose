@@ -1,43 +1,9 @@
-# OnePose: One-Shot Object Pose Estimation without CAD Models
-### [Project Page](https://zju3dv.github.io/onepose) | [Paper](https://arxiv.org/pdf/2205.12257.pdf)
-<br/>
+# 6D Pose Estimation
 
-> OnePose: One-Shot Object Pose Estimation without CAD Models  
-> [Jiaming Sun](https://jiamingsun.ml)<sup>\*</sup>, [Zihao Wang](http://zihaowang.xyz/)<sup>\*</sup>, [Siyu Zhang](https://derizsy.github.io/)<sup>\*</sup>, [Xingyi He](https://github.com/hxy-123/), [Hongcheng Zhao](https://github.com/HongchengZhao), [Guofeng Zhang](http://www.cad.zju.edu.cn/home/gfzhang/), [Xiaowei Zhou](https://xzhou.me)   
-> CVPR 2022  
-
-![demo_vid](assets/onepose-github-teaser.gif)
-
-## TODO List
-- [x] Training and inference code.
-- [x] Pipeline to reproduce the evaluation results on the proposed OnePose dataset.
-- [ ] `OnePose Cap` app: we are preparing for the release of the data capture app to the App Store (iOS only), please stay tuned.
-- [ ] Demo pipeline for running OnePose with custom-captured data including the online tracking module.
-
-## Installation
-
-```shell
-conda env create -f environment.yaml
-conda activate onepose
-```
-We use [SuperPoint](https://github.com/magicleap/SuperPointPretrainedNetwork) and [SuperGlue](https://github.com/magicleap/SuperPointPretrainedNetwork) 
-for 2D feature detection and matching in this project.
-We can't provide the code directly due its LICENSE requirements, please download the inference code and pretrained models using the following script：
-```shell
-REPO_ROOT=/path/to/OnePose
-cd $REPO_ROOT
-sh ./scripts/prepare_2D_matching_resources.sh
-```
-
-[COLMAP](https://colmap.github.io/) is used in this project for Structure-from-Motion. 
-Please refer to the official [instructions](https://colmap.github.io/install.html) for the installation.
-
-[Optional, WIP] You may optionally try out our web-based 3D visualization tool [Wis3D](https://github.com/zju3dv/Wis3D) for convenient and interactive visualizations of feature matches. We also provide many other cool visualization features in Wis3D, welcome to try it out.
-
-```bash
-# Working in progress, should be ready very soon, only available on test-pypi now.
-pip install -i https://test.pypi.org/simple/ wis3d
-```
+## Environment
+-Pytorch Lightning: 2.1.2
+-Pytorch: 2.0.1
+(see more from requirements.txt)
 
 ## Training and Evaluation on OnePose dataset
 ### Dataset setup 
@@ -57,7 +23,7 @@ The directory should be organized in the following structure:
     ln -s /your/path/to/onepose_datasets $REPO_ROOT/data/onepose_datasets
     ```
 
-3. Run Structure-from-Motion for the data sequences
+3. Run Structure-from-Motion for the data sequences (for train and inference on OnePose)
 
     Reconstructed the object point cloud and 2D-3D correspondences are needed for both training and test objects:
     ```python
@@ -100,20 +66,6 @@ The directory should be organized in the following structure:
     ```
 
 
-    
-4. [Optional] Visualize matching and estimated poses with Wis3D. Make sure the flag `save_wis3d` is set as True in testing 
-and the full images are extracted from `Frames.m4v` by script `scripts/parse_full_img.sh`. 
-The visualization file will be saved under `cfg.output.vis_dir` directory which is set as `GATsSPG` by default. 
-Run the following commands for visualization:
-    ```shell
-    sh ./scripts/parse_full_img.sh path_to_Frames_m4v # parse full image from m4v file
-    
-    cd runs/vis/GATsSPG
-    wis3d --vis_dir ./ --host localhost --port 11020
-    ```
-    This would launch a web service for visualization at port 11020.
-
-
 ### Training the GATs Network
 1. Prepare ground-truth annotations. Merge annotations of training/val data:
     ```python
@@ -131,38 +83,3 @@ All model weights will be saved under `${REPO_ROOT}/data/models/checkpoints/${ex
 ```shell
 tensorboard xx
 ``` -->
-
-## Citation
-If you find this code useful for your research, please use the following BibTeX entry.
-
-```bibtex
-@article{sun2022onepose,
-	title={{OnePose}: One-Shot Object Pose Estimation without {CAD} Models},
-	author = {Sun, Jiaming and Wang, Zihao and Zhang, Siyu and He, Xingyi and Zhao, Hongcheng and Zhang, Guofeng and Zhou, Xiaowei},
-	journal={CVPR},
-	year={2022},
-}
-```
-
-## Copyright
-
-This work is affiliated with ZJU-SenseTime Joint Lab of 3D Vision, and its intellectual property belongs to SenseTime Group Ltd.
-
-```
-Copyright SenseTime. All Rights Reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
-
-## Acknowledgement
-Part of our code is borrowed from [hloc](https://github.com/cvg/Hierarchical-Localization) and [SuperGlue](https://github.com/magicleap/SuperGluePretrainedNetwork), thanks to their authors for the great works.
