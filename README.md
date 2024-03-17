@@ -44,7 +44,7 @@ The directory should be organized in the following structure:
     ```python
     python train.py +experiment=NeRF.yaml exp_name=training_onepose
     ```
-    At the end of training stage, model will build voxel and image to voxel's correspondence and save to dataset folder
+    At the end of training stage, model will build voxel and image to voxel's correspondence, then save to dataset folder as two .npy files per object
 
 3. Train Pose
     ```python
