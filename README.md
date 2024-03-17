@@ -52,8 +52,13 @@ The directory should be organized in the following structure:
     ```
 
 ### Test on Onepose Dataset
+1. Test on the last sequence of each object in OnePose training dataset (last sequence is unused during training)
     ```python
     python test_pose.py +experiment=pose_test_seen_obj.yaml exp_name=training_onepose
+    ```
+2. Test on the test set of OnePose dataset
+    ```python
+    python test_pose.py +experiment=pose_test.yaml exp_name=training_onepose
     ```
    
 All model weights will be saved under `${REPO_ROOT}/data/models/checkpoints/${exp_name}` and logs will be saved under `${REPO_ROOT}/data/logs/${exp_name}`.
