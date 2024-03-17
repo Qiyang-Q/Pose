@@ -1,8 +1,8 @@
 # 6D Pose Estimation
 
 ## Environment
--Pytorch Lightning: 2.1.2
--Pytorch: 2.0.1
+- Pytorch Lightning: 2.1.2
+- Pytorch: 2.0.1
 (see more from requirements.txt)
 
 ## Training and Evaluation on OnePose dataset
